@@ -9,6 +9,10 @@ services:
       PORT: 3000
     ports:
       - "3000:3000"
+    volumes:
+      - ../example-soa-web:/workspace
+      # Workaround: Prevent host `node_modules` from being mounted.
+      - notused_web:/workspace/node_modules
   api:
     build:
       context: ../example-soa-api
@@ -17,3 +21,11 @@ services:
       PORT: 3001
     ports:
       - "3001:3001"
+    volumes:
+      - ../example-soa-api:/workspace
+      # Workaround: Prevent host `node_modules` from being mounted.
+      - notused_api:/workspace/node_modules
+volumes:
+  # Workaround: Prevent host `node_modules` from being mounted.
+  notused_web:
+  notused_api:
